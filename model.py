@@ -50,7 +50,9 @@ print("class data shape =", class_shape)
 from keras.models import Sequential, Model
 from keras.layers import Flatten, Dense, Lambda, Activation, Cropping2D
 from keras.layers.convolutional import Convolution2D
-from keras.layers.pooling import MaxPooling2D 
+from keras.layers.pooling import MaxPooling2D
+import matplotlib.pyplot as plt
+
 '''
 #LeNet
 model = Sequential()
@@ -82,8 +84,24 @@ model.add(Dense(1))
 
 model.summary()
 model.compile(loss='mse', optimizer='adam')
-model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=7)
+history_object = model.fit(X_train,
+                           y_train,
+                           validation_split=0.2,
+                           shuffle=True,
+                           nb_epoch=7,
+                           verbose=1)
 
+### print the keys contained in the history object
+print(history_object.history.keys())
+
+### plot the training and validation loss for each epoch
+plt.plot(history_object.history['loss'])
+plt.plot(history_object.history['val_loss'])
+plt.title('model mean squared error loss')
+plt.ylabel('mean squared error loss')
+plt.xlabel('epoch')
+plt.legend(['training set', 'validation set'], loc='upper right')
+plt.show()
 
 model.save('model.h5')
 print("Model.h5 saved")
