@@ -129,6 +129,10 @@ Moreover, follow the lessons' guidance, I also flip the camera images to double 
         augmented_images.append(cv2.flip(image,1))
         augmented_measurements.append(measurement*(-1.0))
 ```
+Moreover, I also add Cropping2D function to reduce the unnecessary informantion of images, which can increase the effienicy of network training.
+```sh
+model.add(Cropping2D(cropping=((70,25), (0,0))))
+```
 The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. To improve the driving behavior in these cases, I record another two video folder:
 ```sh
 data_huaxin_line1
@@ -138,28 +142,35 @@ In these two image folder, I record the spots where car fell off, with these two
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
-#### 2. Final Model Architecture
-
-The final model architecture consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
 #### 3. Creation of the Training Set & Training Process
 
 To capture good driving behavior, I first recorded one laps on track one using center lane driving. Here is an example image of center lane driving, in this record I try to keep the car in the center of road:
 
 ![alt text][image2]
 
-I then recorded the vehicle recovering from the sides of the road back to center. And I also record some special area again. :
+I then recorded the vehicle recovering from the sides of the road back to center. And I also record some special area again where the vehicle would fell off the road. :
 
 ![alt text][image3]
 ![alt text][image4]
 ![alt text][image5]
 
-Becasuse I add multi-camera and image flip, so I only need record these three video one time.
+Becasuse I add multi-camera video and image flip, so I only need to record these three video one time enough.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 4. Although I used an adam optimizer, but I found manually training the learning rate is still necessary, different learning rate will get different perfomance.
+
+#### 4. Challenge for Track two
+
+Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track two by executing 
+```sh
+python drive.py model_multica_map2.h5
+```
+This track two looks more difficult than track one(for human being). But I found there is a center white line in the road, vehicle can just follow the center line to drive.
+So I just keep all the network structure, but small change the Cropping2D function's parameter to let the network more focuse on center line:  
+```sh
+model.add(Cropping2D(cropping=((60,25), (0,0))))
+```
+In this track, I only record one lap which I try to keep the vehicle drive follow the central white.
+![alt text][image5]
+At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
