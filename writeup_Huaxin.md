@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 [image1]: ./center.jpg "Normal Image"
 [image2]: ./side.jpg "Recovery Image"
-[image3]: ./felloffspot.jpg "Fell off area"
+[image3]: ./felloffspots.jpg "Fell off area"
 [image4]: ./track2.jpg "Track two"
 
 ## Rubric Points
