@@ -13,10 +13,10 @@ The goals / steps of this project are the following:
 
 
 [//]: # (Image References)
-[image1]: ./examples/center.jpg "Normal Image"
-[image2]: ./examples/side.jpg "Recovery Image"
-[image3]: ./examples/felloffspot.jpg "Fell off area"
-[image4]: ./examples/track2.jpg "Track two"
+[image1]: ./center.jpg "Normal Image"
+[image2]: ./side.jpg "Recovery Image"
+[image3]: ./felloffspot.jpg "Fell off area"
+[image4]: ./track2.jpg "Track two"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -34,6 +34,7 @@ My project includes the following files:
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
+
 ```sh
 python drive.py model_multica.h5
 ```
@@ -167,5 +168,7 @@ So I just keep all the network structure, but small change the Cropping2D functi
 model.add(Cropping2D(cropping=((60,25), (0,0))))
 ```
 In this track, I only record one lap which I try to keep the vehicle drive follow the central white.
+
 ![alt text][image4]
+
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
