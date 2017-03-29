@@ -91,13 +91,11 @@ Training data was chosen to keep the vehicle driving on the road. I used a combi
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to optimize the NVIDIA architecture with reducing layer and add dropout.
+The overall strategy for deriving a model architecture was to change the NVIDIA architecture with reducing layer and add dropout.
 
-My first step was to use a convolution neural network model similar to the NVIDIA. I thought this model might be appropriate, but it will cost a lot of training time. So I reduce the convolution layer to make the training process faster.
+My first step was to use a convolution neural network model similar to the NVIDIA. I thought this model might be appropriate, but it will cost a lot of training time. So I reduce the convolution layer to make the training process faster. 
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set with validation_split=2. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-
-To combat the overfitting, I modified the model so that I add two dropout function and reduce the learning rate.
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set with validation_split=0.2. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. To combat the overfitting, I modified the model so that I add two dropout function and reduce the learning rate.
 ```sh
 Adam = optimizers.Adam(lr=0.0001)
 model.compile(loss='mse', optimizer=Adam)
@@ -112,20 +110,20 @@ history_object = model.fit(X_train,
 
 Then in order to increase the data set size, I use multi-camera's image recode, and create adjusted steering measurements for the side camera images.
 ```sh
-	correction = 0.22 # this is a parameter to tune
-	measurement_left = measurement_center + correction
-	measurement_right = measurement_center - correction
+correction = 0.22 # this is a parameter to tune
+measurement_left = measurement_center + correction
+measurement_right = measurement_center - correction
 ```
-Moreover, follow the lessons' guidance, I also flip the camera images to double the data size.
+Moreover, follow the lessons' guidance, I flip the camera images to double the data size.
 ```sh
-    augmented_images, augmented_measurements = [], []
-    for image, measurement in zip(images, measurements):
-        augmented_images.append(image)
-        augmented_measurements.append(measurement)
-        augmented_images.append(cv2.flip(image,1))
-        augmented_measurements.append(measurement*(-1.0))
+augmented_images, augmented_measurements = [], []
+for image, measurement in zip(images, measurements):
+augmented_images.append(image)
+augmented_measurements.append(measurement)
+augmented_images.append(cv2.flip(image,1))
+augmented_measurements.append(measurement*(-1.0))
 ```
-Moreover, I also add Cropping2D function to reduce the unnecessary information of images, which can increase the effienicy of network training.
+Then I also add Cropping2D function to reduce the unnecessary information of images, which can increase the effienicy of network training.
 ```sh
 model.add(Cropping2D(cropping=((70,25), (0,0))))
 ```
@@ -134,7 +132,11 @@ The final step was to run the simulator to see how well the car was driving arou
 data_huaxin_line1
 data_huaxin_line2
 ```
-In these two image folder, I record the spots where car fell off, with these two data set retraining, vehicle can drive better. And because the data size of these two folder is quite small, so I increase the learning rate to 0.0002 to let the network learn fast.
+In these two video folder, I record the drving in the spots where car fell off and side road recovery. So in my code, for track one training, there is three times training, frist time is training with center driving data, and second time is training with fell off spots driving data, last one is training with side road recovery driving. And because the data size of the later two dataset is quite small, so I increase the learning rate to 0.0002 to let the network learn faster. In fact, I also prepare another training data about recovery driving on bridge, but I found it's not very neccessary(without this training vehicle already can pass, but sometime with this training vehicle cannot pass, so I comment it in my code)  
+```sh
+data_huaxin_bridge
+```
+Finally, vehicle has better performance with these three times training 
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
