@@ -51,7 +51,7 @@ My model consists of below neural network table, which is very similar with NVID
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 160x320x3 Grayscacle image   					|
+| Input         		| 160x320x3 RGB image   					|
 | Cropping         		| 70, 25 Symmetric cropping values	    		| 
 | Convolution 5x5x24   	| 2x2 stride, Valid padding         			|
 | RELU					|												|
@@ -64,7 +64,7 @@ My model consists of below neural network table, which is very similar with NVID
 | RELU					|												|
 | Flaten        	    |   											|
 | Dense					| 100 the output space 							|
-| Dropout				| 0.5 keep probility							|
+| Dropout				| 0.5 keep probability							|
 | Dense					| 50 the output space							|
 | Dense					| 10  											|
 | Dense					| 1	the output space							|
@@ -94,7 +94,7 @@ For details about how I created the training data, see the next section.
 
 The overall strategy for deriving a model architecture was to optimize the NVIDIA architecture with reducing layer and add dropout.
 
-My first step was to use a convolution neural network model similar to the NVIDIA. I thought this model might be appropriate, but it will cost a lot of training time. So I reduce the convolution layer to make the training prossess faster.
+My first step was to use a convolution neural network model similar to the NVIDIA. I thought this model might be appropriate, but it will cost a lot of training time. So I reduce the convolution layer to make the training process faster.
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set with validation_split=2. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
@@ -126,7 +126,7 @@ Moreover, follow the lessons' guidance, I also flip the camera images to double 
         augmented_images.append(cv2.flip(image,1))
         augmented_measurements.append(measurement*(-1.0))
 ```
-Moreover, I also add Cropping2D function to reduce the unnecessary informantion of images, which can increase the effienicy of network training.
+Moreover, I also add Cropping2D function to reduce the unnecessary information of images, which can increase the effienicy of network training.
 ```sh
 model.add(Cropping2D(cropping=((70,25), (0,0))))
 ```
@@ -135,7 +135,7 @@ The final step was to run the simulator to see how well the car was driving arou
 data_huaxin_line1
 data_huaxin_line2
 ```
-In these two image folder, I record the spots where car fell off, with these two data set retraining, vehicle can drive better. And because the data size of these two folder is quit small, so I increase the learning rate to 0.0002 to let the network learn fast.
+In these two image folder, I record the spots where car fell off, with these two data set retraining, vehicle can drive better. And because the data size of these two folder is quite small, so I increase the learning rate to 0.0002 to let the network learn fast.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
@@ -150,11 +150,11 @@ I then recorded the vehicle recovering from the sides of the road back to center
 ![alt text][image2]
 ![alt text][image3]
 
-Becasuse I add multi-camera video and image flip, so I only need to record these three video one time enough.
+Because I add multi-camera video and image flip, so I only need to record these three video one time enough.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 4. Although I used an adam optimizer, but I found manually training the learning rate is still necessary, different learning rate will get different perfomance.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 4. Although I used an adam optimizer, but I found manually training the learning rate is still necessary, different learning rate will get different performance.
 
 #### 4. Challenge for Track two
 
@@ -163,7 +163,7 @@ Using the Udacity provided simulator and my drive.py file, the car can be driven
 python drive.py model_multica_map2.h5
 ```
 This track two looks more difficult than track one(for human being). But I found there is a center white line in the road, vehicle can just follow the center line to drive.
-So I just keep all the network structure, but small change the Cropping2D function's parameter to let the network more focuse on center line:  
+So I just keep all the network structure, but small change the Cropping2D function's parameter to let the network more focus on center line:  
 ```sh
 model.add(Cropping2D(cropping=((60,25), (0,0))))
 ```
