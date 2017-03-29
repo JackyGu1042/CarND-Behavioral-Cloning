@@ -100,7 +100,6 @@ model.add(Activation('relu'))
 #model.add(Conv2D(64, (3, 3)))
 #model.add(Dropout(0.5))
 
-model.add(Activation('relu'))
 model.add(Flatten())
 model.add(Dense(100))
 model.add(Dropout(0.5)) #Add dropout function to avoid overfitting
@@ -127,90 +126,19 @@ print("y_train data shape =", y_train_shape)
 print("class data shape =", class_shape)
 
 #Learning rate is very important, it should be low with this structure
-Adam = optimizers.Adam(lr=0.00005)
+Adam = optimizers.Adam(lr=0.0001)
 model.compile(loss='mse', optimizer=Adam)
 
 history_object = model.fit(X_train,
                            y_train,
                            validation_split=0.2,
                            shuffle=True,
-                           epochs=6,
+                           epochs=4,
                            verbose=1)
 
 print("Finish normal drive training and save the model")
 model.save('Model_multica_map2.h5')
 
-####################################################
-#Load side line1 back action image for 2nd training#
-####################################################
-X_train, y_train = load_training_data("Map2/data_huaxin_line1")
-
-#Beacuse the data size is small, the learning rate should be higher
-Adam = optimizers.Adam(lr=0.0002)
-model.compile(loss='mse', optimizer=Adam)
-
-history_object = model.fit(X_train,
-                           y_train,
-                           validation_split=0.2,
-                           shuffle=True,
-                           epochs=4,
-                           verbose=1)
-
-print("Finish curve line1 training and save the model")
-model.save('Model_multica_map2.h5')
-'''
-####################################################
-#Load side line2 back action image for 3id training#
-####################################################
-X_train, y_train = load_training_data("Map2/data_huaxin_line2")
-
-#Beacuse the data size is small, the learning rate should be higher
-Adam = optimizers.Adam(lr=0.0002)
-model.compile(loss='mse', optimizer=Adam)
-
-history_object = model.fit(X_train,
-                           y_train,
-                           validation_split=0.2,
-                           shuffle=True,
-                           epochs=4,
-                           verbose=1)
-
-print("Finish curve line2 training and save the model")
-model.save('Model_multica.h5')
-
-#Beacuse this bridge line back action will damage the car drive perfomance
-#So comment it 
-
-#############################################################
-#Load side line back action on bridge image for 4th training#
-#############################################################
-
-X_train, y_train = load_training_data("Map2/data_huaxin_bridge")
-
-Adam = optimizers.Adam(lr=0.0002)
-model.compile(loss='mse', optimizer=Adam)
-
-
-history_object = model.fit(X_train,
-                           y_train,
-                           validation_split=0.2,
-                           shuffle=True,
-                           epochs=4,
-                           verbose=1)
-
-print("Finish curve bridge training and save the model")
-model.save('Model_multica.h5')
-'''
-
-'''
-    #Use generator
-history_object = model.fit_generator(train_generator,
-                                     samples_per_epoch=len(train_samples),
-                                     validation_data=validation_generator,
-                                     nb_val_samples=len(validation_samples),
-                                     nb_epoch=3,
-                                     verbose=1)
-'''
 ### print the keys contained in the history object
 print(history_object.history.keys())
 
