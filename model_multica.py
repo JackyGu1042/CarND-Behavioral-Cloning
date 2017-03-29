@@ -100,7 +100,6 @@ model.add(Activation('relu'))
 #model.add(Conv2D(64, (3, 3)))
 #model.add(Dropout(0.5))
 
-model.add(Activation('relu'))
 model.add(Flatten())
 model.add(Dense(100))
 model.add(Dropout(0.5)) #Add dropout function to avoid overfitting
@@ -202,15 +201,6 @@ print("Finish curve bridge training and save the model")
 model.save('Model_multica.h5')
 '''
 
-'''
-    #Use generator
-history_object = model.fit_generator(train_generator,
-                                     samples_per_epoch=len(train_samples),
-                                     validation_data=validation_generator,
-                                     nb_val_samples=len(validation_samples),
-                                     nb_epoch=3,
-                                     verbose=1)
-'''
 ### print the keys contained in the history object
 print(history_object.history.keys())
 
