@@ -65,7 +65,7 @@ My model consists of below neural network table, which is very similar with NVID
 | Convolution 3x3x64   	| 1x1 stride, Valid padding 					|
 | Dropout				| 0.5 keep probility							|
 | RELU					|												|
-| Flaten        	    |   											|
+| Flatten        	    |   											|
 | Dense					| 100 the output space 							|
 | Dropout				| 0.5 keep probability							|
 | Dense					| 50 the output space							|
