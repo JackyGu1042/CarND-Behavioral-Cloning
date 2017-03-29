@@ -118,10 +118,10 @@ Moreover, follow the lessons' guidance, I flip the camera images to double the d
 ```sh
 augmented_images, augmented_measurements = [], []
 for image, measurement in zip(images, measurements):
-augmented_images.append(image)
-augmented_measurements.append(measurement)
-augmented_images.append(cv2.flip(image,1))
-augmented_measurements.append(measurement*(-1.0))
+ augmented_images.append(image)
+ augmented_measurements.append(measurement)
+ augmented_images.append(cv2.flip(image,1))
+ augmented_measurements.append(measurement*(-1.0))
 ```
 Then I also add Cropping2D function to reduce the unnecessary information of images, which can increase the effienicy of network training.
 ```sh
