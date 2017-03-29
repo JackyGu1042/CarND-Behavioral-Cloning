@@ -39,7 +39,6 @@ Using the Udacity provided simulator and my drive.py file, the car can be driven
 
 ```sh
 python drive.py model_multica.h5
-python drive.py model_multica_map2.h5
 ```
 
 #### 3. Submission code is usable and readable
@@ -151,11 +150,9 @@ I then recorded the vehicle recovering from the sides of the road back to center
 ![alt text][image2]
 ![alt text][image3]
 
-Because I add multi-camera video and image flip, so I only need to record these three video one time enough.
+Because I add multi-camera video and image flip, so I only need to record these three video one time enough. I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I finally randomly shuffled the data set and put 20% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 4. Although I used an adam optimizer, but I found manually training the learning rate is still necessary, different learning rate will get different performance.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 4 for each time training. Although I used an adam optimizer, but I found manually training the learning rate is still necessary.
 
 #### 4. Challenge for Track two
 
@@ -163,13 +160,14 @@ Using the Udacity provided simulator and my drive.py file, the car can be driven
 ```sh
 python drive.py model_multica_map2.h5
 ```
-This track two looks more difficult than track one(for human being). But I found there is a center white line in the road, vehicle can just follow the center line to drive.
-So I just keep all the network structure, but small change the Cropping2D function's parameter to let the network more focus on center line:  
+This track two looks more difficult than track one(for human being). But there is a center white line in the road, vehicle can follow the center line to drive. So in the real practic, I found we no need training with side road recovery driving data. 
+
+For code modification, I keep all the network structure, but small change the Cropping2D function's parameter to let the network more focus on center line:  
 ```sh
 model.add(Cropping2D(cropping=((60,25), (0,0))))
 ```
-In this track, I only record one lap which I try to keep the vehicle drive follow the central white.
+In this track, I only record one lap which I try to keep the vehicle drive follow the central white. So in this track two, I only training the network with one driving data.
 
 ![alt text][image4]
 
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+Luckly, at the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
