@@ -33,7 +33,8 @@ My project includes the following files:
 * model_multica_map2.h5 containing a trained convolution neural network for track two
 * drive.py for driving the car in autonomous mode
 * writeup_report.md or writeup_report.pdf summarizing the results
-
+* track1.mp4 the vehicle autonomously driving video in track one
+* track2.mp4 the vehicle autonomously driving video in track two
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 
