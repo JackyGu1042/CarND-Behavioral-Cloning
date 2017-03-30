@@ -132,7 +132,7 @@ The final step was to run the simulator to see how well the car was driving arou
 data_huaxin_line1
 data_huaxin_line2
 ```
-In these two video folder, I record the drving in the spots where car fell off and side road recovery. So in my code, for track one training, there is three times training, frist time is training with center driving data, and second time is training with fell off spots driving data, last one is training with side road recovery driving. And because the data size of the later two dataset is quite small, so I increase the learning rate to 0.0002 to let the network learn faster. In fact, I also prepare another training data about recovery driving on bridge, but I found it's not very neccessary(without this training vehicle already can pass, but sometime with this training vehicle cannot pass, so I comment it in my code)  
+In these two video folder, I record the drving in the spots where car fell off and side road recovery. So in my code, for track one training, there are three times training, frist time is training with center driving data, and second time is training with fell off spots driving data, last one is training with side road recovery driving. And because the data size of the later two dataset is quite small, so I increase the learning rate to 0.0002 to let the network learn faster. In fact, I also prepare another training data about recovery driving on bridge, but I found it's not very neccessary(without this training vehicle already can pass, but sometime with this training vehicle cannot pass, so I comment it in my code)  
 ```sh
 data_huaxin_bridge
 ```
