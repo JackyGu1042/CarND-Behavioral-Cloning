@@ -85,7 +85,7 @@ The model used an adam optimizer, but I still tuned the learning rate which is 0
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the sides of the road and some special fell off area driving. For details about how I created the training data, see the next section. 
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the sides of the road driving and some special fell off area driving. For details about how I created the training data, see the next section. 
 
 ### Model Architecture and Training Strategy
 
